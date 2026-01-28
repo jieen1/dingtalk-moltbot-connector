@@ -53,13 +53,13 @@ moltbot plugins install -l ./dingtalk-moltbot-connector
 
 ```json5
 {
-  channels: {
-    dingtalk: {
-      enabled: true,
-      clientId: "dingxxxxxxxxx",       // 钉钉 AppKey
-      clientSecret: "your_secret_here", // 钉钉 AppSecret
-      enableMediaUpload: true,          // 可选：图片上传（默认开启）
-      systemPrompt: "",                 // 可选：自定义 system prompt
+  "channels": {
+    "dingtalk": {
+      "enabled": true,
+      "clientId": "dingxxxxxxxxx",       // 钉钉 AppKey
+      "clientSecret": "your_secret_here", // 钉钉 AppSecret
+      "enableMediaUpload": true,          // 可选：图片上传（默认开启）
+      "systemPrompt": "",                 // 可选：自定义 system prompt
     }
   }
 }
