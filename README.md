@@ -192,6 +192,29 @@ dingtalk-moltbot-connector/
 
 ## 常见问题
 
+### Q: 出现405错误
+<img width="698" height="193" alt="image" src="https://github.com/user-attachments/assets/f2abd9c0-6c72-45b3-aee1-39fb477664bd" />
+注意~/.clawdbot/clawdbot.json中要添加chatCompletions端点
+```json5
+{
+  "gateway": {
+    "http": {
+      "endpoints": {
+        "chatCompletions": {
+          "enabled": true
+        }
+      }
+    }
+  }
+}
+```
+
+### Q: 出现401错误
+<img width="895" height="257" alt="image" src="https://github.com/user-attachments/assets/5d6227f0-b4b1-41c4-ad88-82a7ec0ade1e" />
+注意~/.clawdbot/clawdbot.json中鉴权token/password要对上
+<img width="1322" height="604" alt="image" src="https://github.com/user-attachments/assets/b9f97446-5035-4325-a0dd-8f8e32f7b86a" />
+
+
 ### Q: 钉钉机器人无响应
 
 1. 确认 Gateway 正在运行：`curl http://127.0.0.1:18789/health`
