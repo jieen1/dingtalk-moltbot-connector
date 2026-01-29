@@ -73,7 +73,7 @@ clawdbot plugins install -l ./dingtalk-moltbot-connector
       "sessionTimeout": 1800000,          // 可选：会话超时(ms)，默认 30 分钟
     }
   },
-  "gateway": {
+  "gateway": { // gateway通常是已有的节点，配置时注意把http部分追加到已有节点下
     "http": {
       "endpoints": {
         "chatCompletions": {
