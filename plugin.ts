@@ -941,7 +941,7 @@ async function processFileMarkers(
 // ============ AI Card Streaming ============
 
 const DINGTALK_API = 'https://api.dingtalk.com';
-const AI_CARD_TEMPLATE_ID = '382e4302-551d-4880-bf29-a30acfab2e71.schema';
+const DEFAULT_AI_CARD_TEMPLATE_ID = '382e4302-551d-4880-bf29-a30acfab2e71.schema';
 
 // flowStatus 值与 Python SDK AICardStatus 一致（cardParamMap 的值必须是字符串）
 const AICardStatus = {
@@ -1302,9 +1302,11 @@ async function createAICardForTarget(
 
     log?.info?.(`[DingTalk][AICard] 开始创建卡片: ${targetDesc}, outTrackId=${cardInstanceId}`);
 
-    // 1. 创建卡片实例
+    // 1. 创建卡片实例（使用配置的模板 ID，或使用默认值）
+    const cardTemplateId = config.cardTemplateId || DEFAULT_AI_CARD_TEMPLATE_ID;
+    log?.info?.(`[DingTalk][AICard] 使用模板: ${cardTemplateId}`);
     const createBody = {
-      cardTemplateId: AI_CARD_TEMPLATE_ID,
+      cardTemplateId,
       outTrackId: cardInstanceId,
       cardData: { cardParamMap: {} },
       callbackType: 'STREAM',
@@ -2214,6 +2216,7 @@ const dingtalkPlugin = {
         gatewayToken: { type: 'string', default: '', description: 'Gateway auth token (Bearer)' },
         gatewayPassword: { type: 'string', default: '', description: 'Gateway auth password (alternative to token)' },
         sessionTimeout: { type: 'number', default: 1800000, description: 'Session timeout in ms (default 30min)' },
+        cardTemplateId: { type: 'string', default: '', description: 'AI Card template ID (e.g., faac4ec7-01d8-4064-9f09-43bdd8586ba8.schema)' },
         debug: { type: 'boolean', default: false },
       },
       required: ['clientId', 'clientSecret'],
@@ -2224,6 +2227,7 @@ const dingtalkPlugin = {
       clientSecret: { label: 'App Secret', sensitive: true },
       dmPolicy: { label: 'DM Policy' },
       groupPolicy: { label: 'Group Policy' },
+      cardTemplateId: { label: 'AI Card Template', sensitive: false },
     },
   },
   config: {
